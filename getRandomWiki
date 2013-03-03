@@ -7,11 +7,8 @@
 E="/bin/echo"
 
 curl -L http://en.wikipedia.org/wiki/Special:Random 2>/dev/null \
-  | grep -e "<p>\|<title>" \
-  | grep -e "<b>\|<title>" \
-  | grep -v -e `$E -e "\200"` \
-  | grep -v -e `$E -e "\342"` \
-  | grep -v -e `$E -e "\242"` \
+  | grep -E "<(p|title)>" \
+  | grep -E "<(b|title)>" \
   | head -n 2 \
   | sed 's?.*<title>\(.*\) - .*</title>?\1?g' \
   | sed 's?.*<p>?<p>?g' \
