@@ -6,14 +6,9 @@
 # June 14, 2012
 
 N="terminal-notifier"
-TITLE="-title HILARIOUS"
-TAIL="tail"
-TR="tr"
-HTML2TEXT="html2text"
 while [ 1 ]
 do
-  TXT="`./getRandomWiki | $HTML2TEXT -nobs | $TAIL -n +2 | $TR '\n' ' '`"
-  ${N} -message "${TXT}" -title "HILARIOUS"
+  ${N} -message "$($(dirname $0)/getRandomWiki)" -title "HILARIOUS"
   echo "sleeping"
   date
   sleep 5s

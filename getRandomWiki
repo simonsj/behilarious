@@ -2,9 +2,7 @@
 #
 # Fetches a random English Wikipedia article, strips out its title and
 # first <p>...</p>, and seds its links to be absolute ones instead of
-# relative ones.
-
-E="/bin/echo"
+# relative ones.  Finally removes HTML.
 
 curl -L http://en.wikipedia.org/wiki/Special:Random 2>/dev/null \
   | grep -E "<(p|title)>" \
@@ -12,4 +10,7 @@ curl -L http://en.wikipedia.org/wiki/Special:Random 2>/dev/null \
   | head -n 2 \
   | sed 's?.*<title>\(.*\) - .*</title>?\1?g' \
   | sed 's?.*<p>?<p>?g' \
-  | sed 's?a href="/wiki?a href="http://en.wikipedia.org/wiki?g'
+  | sed 's?a href="/wiki?a href="http://en.wikipedia.org/wiki?g' \
+  | html2text -nobs \
+  | tail -n +2 \
+  | tr '\n' ' '
