@@ -4,4 +4,17 @@
 #
 # Jon Simons
 # June 14, 2012
-while [ 1 ]; do notify-send "HILARIOUS" "`./getRandomWiki | html2text -nobs | tail -n +2 | tr '\n' ' '`"; echo "sleeping"; date; sleep 5s; done
+
+N="terminal-notifier"
+TITLE="-title HILARIOUS"
+TAIL="tail"
+TR="tr"
+HTML2TEXT="html2text"
+while [ 1 ]
+do
+  TXT="`./getRandomWiki | $HTML2TEXT -nobs | $TAIL -n +2 | $TR '\n' ' '`"
+  ${N} -message "${TXT}" -title "HILARIOUS"
+  echo "sleeping"
+  date
+  sleep 5s
+done
