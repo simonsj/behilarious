@@ -13,4 +13,7 @@ curl -L http://en.wikipedia.org/wiki/Special:Random 2>/dev/null \
   | sed 's?a href="/wiki?a href="http://en.wikipedia.org/wiki?g' \
   | html2text -nobs \
   | tail -n +2 \
-  | tr '\n' ' '
+  | tr '\n' ' ' \
+  | sed 's?_? ?g' \
+  | sed 's/\[[0-9][0-9]*\]//g' \
+  | sed 's/([^)]*[0-9][0-9][0-9][0-9]*)//g'
